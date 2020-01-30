@@ -17,7 +17,7 @@ FROM alpine
 
 # LABEL maintainer=""
 
-ENV SHADOWSOCKS_LIBEV_VERSION v3.3.3
+ENV SHADOWSOCKS_LIBEV_VERSION v3.3.4
 
 # Build shadowsocks-libev
 RUN set -ex \
@@ -70,6 +70,8 @@ ENV PASSWORD ChangeMe!!!
 ENV METHOD chacha20-ietf-poly1305
 ENV TIMEOUT 86400
 ENV DNS_ADDRS 8.8.8.8,8.8.4.4
+ENV PLUGIN v2ray-plugin
+ENV PLUGIN_OPT tls;server
 ENV ARGS -u
 
 EXPOSE $SERVER_PORT/tcp $SERVER_PORT/udp
@@ -84,4 +86,6 @@ CMD exec ss-server \
     -d $DNS_ADDRS \
     --reuse-port \
     --no-delay \
+    --plugin $PLUGIN \
+    --plugin-opt $PLUGIN_OPT \
     $ARGS
